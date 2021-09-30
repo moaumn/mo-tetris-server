@@ -27,11 +27,17 @@ io.on("connection", (socket) => {
 
   // 接收游戏指令
   socket.on("game", (...msg) => {
-    // socket.emit("game", ...msg);
     const rivalId = getRivalId(socket);
-    console.log(socket.id, rivalId, ...msg);
     if (rivalId) {
       socket.to(rivalId).emit("game", ...msg);
+    }
+  });
+
+  // 接收游戏指令
+  socket.on("rivalGame", (...msg) => {
+    const rivalId = getRivalId(socket);
+    if (rivalId) {
+      socket.to(rivalId).emit("rivalGame", ...msg);
     }
   });
 
